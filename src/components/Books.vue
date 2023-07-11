@@ -1,11 +1,9 @@
 <template>
   <div>
     <h1>Books</h1>
-    <ul>
-      <li v-for="book in books" :key="book.id">
-        {{ book.name }}{{ book.author.name }}<button @click="deleteBook(book)">Delete</button>
-      </li>
-    </ul>
+    <div class="container">
+        <Book v-for="book in books" :name="book.name" :author="book.author" :src="book.src" :key="book.id"/>
+    </div>
     <button @click="addBook">add book</button>
   </div>
 </template>
@@ -13,6 +11,8 @@
 <script setup>
 import { computed, onBeforeMount, onMounted, onUpdated } from 'vue'
 import { useBookStore } from '../stores/books'
+
+import Book from './Book.vue';
 
 const store = useBookStore()
 
@@ -22,7 +22,7 @@ const addBook = () => {
     name: 'Book1',
     price: 300,
     author: { name: 'John', second_name: 'Paul', last_name: 'Smith' },
-    src: 'https://imgur.com/t/book_cover/P5kWb5B',
+    src: 'https://imgur.com/WFBmelM',
     description: 'No description',
     published_at: date.toString(),
   })
@@ -51,5 +51,9 @@ onUpdated(() => {
 <style lang="scss" scoped>
 h1 {
   color: #000;
+}
+
+.container{
+    display: flex;
 }
 </style>
