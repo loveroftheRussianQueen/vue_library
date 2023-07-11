@@ -4,7 +4,14 @@ import Books from './components/Books.vue'
 </script>
 
 <template>
-  <Books />
+  <div class="container">
+    <Books />
+  </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.container {
+  height: 100vh;
+  padding: 10px;
+}
+</style>
