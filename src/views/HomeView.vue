@@ -1,7 +1,9 @@
-<script setup></script>
+<script setup>
+import Books from '../components/Books.vue';
+</script>
 
 <template>
   <main>
-    <h1 style="color: black">Home</h1>
+    <Books />
   </main>
 </template>

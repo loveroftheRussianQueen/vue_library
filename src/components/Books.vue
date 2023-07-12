@@ -1,40 +1,48 @@
 <template>
-  <div>
-    <h1>Vue EBooks</h1>
+  <header>
+        <h1>Vue Library</h1>
+        <button @click="addBook">add book</button>
+  </header>
     <div class="container">
       <Book
         v-for="book in books"
+        :id="book.id"
         :title="book.title"
         :author="book.author"
         :src="book.src"
         :price="book.price"
         :key="book.id"
+        
         v-on:delete="deleteBook(book)"
       />
+      <NewBook
+      ref="form"
+      v-if="isShowModal"
+    />
     </div>
-    <button @click="addBook">add book</button>
-  </div>
 </template>
 
 <script setup>
-import { computed, onBeforeMount, onMounted, onUpdated } from 'vue'
+import { computed, onBeforeMount, onMounted, onUpdated, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useBookStore } from '../stores/books'
 
 import Book from './Book.vue'
+import NewBook from './NewBook.vue'
 
 const store = useBookStore()
+const route = useRoute()
+const router = useRouter()
+
+const isShowModal = ref(false)
+
+const openModal = (name, value) => {
+  isShowModal.value = true
+  console.log(route.path);
+}
 
 const addBook = () => {
-  const date = new Date('2020-05-22')
-  store.addBook({
-    title: 'Book1',
-    price: 300,
-    author: { name: 'John', second_name: 'Paul', last_name: 'Smith' },
-    src: '../src/assets/img/cover1.jpg',
-    description: 'No description',
-    published_at: date.toString()
-  })
-  store.getBooks()
+  router.push('/books/create')
 }
 
 const deleteBook = async (book) => {
@@ -42,6 +50,9 @@ const deleteBook = async (book) => {
   store.getBooks()
 }
 
+const navigateToBook = (id) =>{
+  router.push(`/book/${id}`);
+}
 const books = computed(() => {
   return store.$state.books
 })
@@ -52,7 +63,7 @@ onMounted(() => {
 })
 
 onUpdated(() => {
-  console.log(store.$state.books)
+  console.log(isShowModal.value)
 })
 </script>
 

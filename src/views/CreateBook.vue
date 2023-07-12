@@ -1,8 +1,12 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <NewBook/>
   </div>
 </template>
+
+<script setup>
+import NewBook from '../components/NewBook.vue'
+</script>
 
 <style scoped lang="scss">
 @media (min-width: 1024px) {
@@ -13,3 +17,5 @@
   }
 }
 </style>
+
+

@@ -4,9 +4,7 @@ import Books from './components/Books.vue'
 </script>
 
 <template>
-  <div class="container">
-    <Books />
-  </div>
+  <RouterView/>
 </template>
 
 <style scoped lang="scss">

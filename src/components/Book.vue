@@ -1,5 +1,5 @@
 <template>
-  <div class="book_item">
+  <div class="book_item" @click="$emit('navigate', id)">
     <div id="overlay"></div>
     <span class="book_item__buttons">
       <img src="../assets/icons/edit.svg" alt="Edit icon"/>
@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
-const props = defineProps(['title', 'price', 'author', 'src', 'description', 'published_at'])
-const emits = defineEmits(['delete'])
+const props = defineProps(['id', 'title', 'price', 'author', 'src', 'description', 'published_at'])
+const emits = defineEmits(['delete', 'navigate'])
 </script>
 
 <style lang="scss" scoped>
@@ -47,7 +47,7 @@ const emits = defineEmits(['delete'])
     width: 200px;
     height: 300px;
     background-color: rgba($color: #000000, $alpha: 0.2);
-    transition: ease-in-out 0.3s;
+    transition: all 1s;
   }
 
   &__buttons{
