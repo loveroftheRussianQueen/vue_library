@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <NewBook/>
+    <NewBook />
   </div>
 </template>
 
@@ -17,5 +17,3 @@ import NewBook from '../components/NewBook.vue'
   }
 }
 </style>
-
-

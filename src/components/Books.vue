@@ -1,25 +1,23 @@
 <template>
   <header>
-        <h1>Vue Library</h1>
-        <button @click="addBook">add book</button>
+    <h1>Vue Library</h1>
+    <button @click="addBook">add book</button>
   </header>
-    <div class="container">
-      <Book
-        v-for="book in books"
-        :id="book.id"
-        :title="book.title"
-        :author="book.author"
-        :src="book.src"
-        :price="book.price"
-        :key="book.id"
-        
-        v-on:delete="deleteBook(book)"
-      />
-      <NewBook
-      ref="form"
-      v-if="isShowModal"
+  <div class="container">
+    <Book
+      v-for="book in books"
+      :id="book.id"
+      :title="book.title"
+      :author="book.author"
+      :src="book.src"
+      :price="book.price"
+      :key="book.id"
+      @delete="deleteBook(book)"
+      @edit="editBook(book.id)"
+      @click="navigateToBook(book.id)"
     />
-    </div>
+    <NewBook ref="form" v-if="isShowModal" />
+  </div>
 </template>
 
 <script setup>
@@ -36,13 +34,12 @@ const router = useRouter()
 
 const isShowModal = ref(false)
 
-const openModal = (name, value) => {
-  isShowModal.value = true
-  console.log(route.path);
-}
-
 const addBook = () => {
   router.push('/books/create')
+}
+
+const editBook = (id) => {
+  router.push(`/book/${id}/edit`)
 }
 
 const deleteBook = async (book) => {
@@ -50,8 +47,8 @@ const deleteBook = async (book) => {
   store.getBooks()
 }
 
-const navigateToBook = (id) =>{
-  router.push(`/book/${id}`);
+const navigateToBook = (id) => {
+  router.push(`/book/${id}/show`)
 }
 const books = computed(() => {
   return store.$state.books
@@ -60,10 +57,6 @@ const books = computed(() => {
 onMounted(() => {
   store.getBooks()
   console.log(store.$state.books)
-})
-
-onUpdated(() => {
-  console.log(isShowModal.value)
 })
 </script>
 

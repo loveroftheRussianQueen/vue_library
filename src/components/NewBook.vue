@@ -1,10 +1,9 @@
 <script setup>
 import { onUpdated, ref } from 'vue'
-import { useRouter } from 'vue-router';
-import { useBookStore } from '../stores/books';
+import { useRouter } from 'vue-router'
+import { useBookStore } from '../stores/books'
 
-
-const store = useBookStore();
+const store = useBookStore()
 const router = useRouter()
 
 let newBook = ref({
@@ -17,23 +16,27 @@ let newBook = ref({
   },
   src: '../src/assets/img/cover1.jpg',
   description: '',
-  published_at: '',
+  published_at: ''
 })
+
+let imageSrc = ref(null);
 
 const addBook = () => {
   let book1 = JSON.stringify(newBook.value)
-  store.addBook(JSON.parse(book1));
+  store.addBook(JSON.parse(book1))
   store.getBooks()
   router.push('/')
 }
 
-const onUploadImage = (e) =>{
-    console.log(e)
-}
-
-onUpdated(() =>{
-  console.log(typeof(newBook.value.published_at));
-})
+const uploadImage = (e) =>{
+          const image = e.target.files[0];
+          const reader = new FileReader();
+          reader.readAsDataURL(image);
+          reader.onload = e =>{
+              imageSrc.value = e.target.result;
+              console.log(imageSrc.value);
+          };
+      }
 </script>
 
 <template>
@@ -41,15 +44,20 @@ onUpdated(() =>{
     <form>
       <input type="text" placeholder="What is your book's name?" v-model="newBook.title" />
       <input type="number" placeholder="What is your book's price?" v-model="newBook.price" />
-      <input type="date" placeholder="When was your book published?" v-model="newBook.published_at" />
+      <input
+        type="date"
+        placeholder="When was your book published?"
+        v-model="newBook.published_at"
+      />
       <input type="text" placeholder="Add a description" v-model="newBook.description" />
       <label>Who is the author?</label>
       <input type="text" placeholder="First name" v-model="newBook.author.name" />
       <input type="text" placeholder="Second name" v-model="newBook.author.second_name" />
       <input type="text" placeholder="Last name" v-model="newBook.author.last_name" />
-      <input type="file" placeholder="Add an image" @change="onUploadImage"/>
+      <input type="file" placeholder="Add an image" @change="uploadImage" />
       <button @click.prevent="addBook">Add a book</button>
     </form>
+    <img :src="imageSrc.value" alt="Preview" v-if="imageSrc !== null"/>
   </div>
 </template>
 

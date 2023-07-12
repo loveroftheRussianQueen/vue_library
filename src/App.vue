@@ -4,7 +4,7 @@ import Books from './components/Books.vue'
 </script>
 
 <template>
-  <RouterView/>
+  <RouterView />
 </template>
 
 <style scoped lang="scss">

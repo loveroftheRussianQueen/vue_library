@@ -1,9 +1,9 @@
 <template>
-  <div class="book_item" @click="$emit('navigate', id)">
+  <div class="book_item">
     <div id="overlay"></div>
     <span class="book_item__buttons">
-      <img src="../assets/icons/edit.svg" alt="Edit icon"/>
-      <img src="../assets/icons/delete.svg" alt="Delete icon" @click="$emit('delete')"/>
+      <img src="../assets/icons/edit.svg" alt="Edit icon" @click="$emit('edit')" />
+      <img src="../assets/icons/delete.svg" alt="Delete icon" @click="$emit('delete')" />
     </span>
     <img class="book_item__cover" :src="props.src" alt="Book cover" />
     <p class="book_item__price">{{ props.price }} ₽</p>
@@ -14,7 +14,7 @@
 
 <script setup>
 const props = defineProps(['id', 'title', 'price', 'author', 'src', 'description', 'published_at'])
-const emits = defineEmits(['delete', 'navigate'])
+const emits = defineEmits(['delete', 'edit'])
 </script>
 
 <style lang="scss" scoped>
@@ -30,16 +30,16 @@ const emits = defineEmits(['delete', 'navigate'])
   &:hover {
     cursor: pointer;
 
-    .book_item__buttons{
+    .book_item__buttons {
       display: inline;
     }
 
-    #overlay{
+    #overlay {
       display: block;
     }
   }
 
-  #overlay{
+  #overlay {
     display: none;
     position: absolute;
     top: 0;
@@ -50,13 +50,14 @@ const emits = defineEmits(['delete', 'navigate'])
     transition: all 1s;
   }
 
-  &__buttons{
+  &__buttons {
     display: none;
     position: absolute;
     top: 10px;
     right: 10px;
+    z-index: 10;
 
-    img{
+    img {
       width: 24px;
       height: 24px;
       transition: ease-in-out 1s;
