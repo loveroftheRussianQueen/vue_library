@@ -20,6 +20,7 @@ let newBook = ref({
 })
 
 let imageSrc = ref(null);
+let image = ref(null)
 
 const addBook = () => {
   let book1 = JSON.stringify(newBook.value)
@@ -29,13 +30,15 @@ const addBook = () => {
 }
 
 const uploadImage = (e) =>{
-          const image = e.target.files[0];
-          const reader = new FileReader();
-          reader.readAsDataURL(image);
-          reader.onload = e =>{
-              imageSrc.value = e.target.result;
-              console.log(imageSrc.value);
-          };
+  let input = e.target;
+      if (input.files) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          imageSrc.value = e.target.result;
+        }
+        image.value=input.files[0];
+        reader.readAsDataURL(input.files[0]);
+      }
       }
 </script>
 

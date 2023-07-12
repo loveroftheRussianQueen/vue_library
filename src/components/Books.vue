@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>Vue Library</h1>
-    <button @click="addBook">add book</button>
+    <button @click="addBook" class="btn_add">Add Book</button>
   </header>
   <div class="container">
     <Book
@@ -14,7 +14,6 @@
       :key="book.id"
       @delete="deleteBook(book)"
       @edit="editBook(book.id)"
-      @click="navigateToBook(book.id)"
     />
     <NewBook ref="form" v-if="isShowModal" />
   </div>
@@ -56,13 +55,15 @@ const books = computed(() => {
 
 onMounted(() => {
   store.getBooks()
-  console.log(store.$state.books)
 })
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  color: #000;
+header{
+  padding: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: rgb(238, 232, 225);
 }
 
 .container {
@@ -70,5 +71,14 @@ h1 {
   flex-wrap: wrap;
   padding: 10px;
   gap: 10px;
+}
+
+.btn_add{
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid rgb(180, 173, 173);
+  color: #000;
+  font-size: 16px;
 }
 </style>
