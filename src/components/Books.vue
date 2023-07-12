@@ -15,23 +15,18 @@
       @delete="deleteBook(book)"
       @edit="editBook(book.id)"
     />
-    <NewBook ref="form" v-if="isShowModal" />
   </div>
 </template>
 
 <script setup>
-import { computed, onBeforeMount, onMounted, onUpdated, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBookStore } from '../stores/books'
 
 import Book from './Book.vue'
-import NewBook from './NewBook.vue'
 
 const store = useBookStore()
-const route = useRoute()
 const router = useRouter()
-
-const isShowModal = ref(false)
 
 const addBook = () => {
   router.push('/books/create')
@@ -49,6 +44,7 @@ const deleteBook = async (book) => {
 const navigateToBook = (id) => {
   router.push(`/book/${id}/show`)
 }
+
 const books = computed(() => {
   return store.$state.books
 })
@@ -59,7 +55,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-header{
+header {
   padding: 10px;
   display: flex;
   justify-content: space-evenly;
@@ -73,7 +69,7 @@ header{
   gap: 10px;
 }
 
-.btn_add{
+.btn_add {
   cursor: pointer;
   padding: 10px 15px;
   border-radius: 10px;

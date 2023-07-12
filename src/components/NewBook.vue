@@ -1,5 +1,5 @@
 <script setup>
-import { onUpdated, ref } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useBookStore } from '../stores/books'
 
@@ -19,7 +19,7 @@ let newBook = ref({
   published_at: ''
 })
 
-let imageSrc = ref(null);
+let imageSrc = ref(null)
 let image = ref(null)
 
 const addBook = () => {
@@ -29,17 +29,17 @@ const addBook = () => {
   router.push('/')
 }
 
-const uploadImage = (e) =>{
-  let input = e.target;
-      if (input.files) {
-        let reader = new FileReader();
-        reader.onload = (e) => {
-          imageSrc.value = e.target.result;
-        }
-        image.value=input.files[0];
-        reader.readAsDataURL(input.files[0]);
-      }
-      }
+const uploadImage = (e) => {
+  let input = e.target
+  if (input.files) {
+    let reader = new FileReader()
+    reader.onload = (e) => {
+      imageSrc.value = e.target.result
+    }
+    image.value = input.files[0]
+    reader.readAsDataURL(input.files[0])
+  }
+}
 </script>
 
 <template>
@@ -60,7 +60,6 @@ const uploadImage = (e) =>{
       <input type="file" placeholder="Add an image" @change="uploadImage" />
       <button @click.prevent="addBook">Add a book</button>
     </form>
-    <img :src="imageSrc.value" alt="Preview" v-if="imageSrc !== null"/>
   </div>
 </template>
 
